@@ -53,6 +53,11 @@ class Timer(object):
         从京东服务器获取时间毫秒
         :return:
         """
+        url = 'https://api.m.jd.com'
+        resp = requests.get(url, verify=False)
+        jd_timestamp = int(resp.headers.get('X-API-Request-Id')[-13:])
+        return jd_timestamp
+
         url = 'https://a.jd.com//ajax/queryServerData.html'
         ret = requests.get(url).text
         js = json.loads(ret)
